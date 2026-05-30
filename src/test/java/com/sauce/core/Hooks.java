@@ -1,4 +1,4 @@
-package com.sauce.steps; // Mantenha o pacote onde ele está agora
+package com.sauce.core;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
