@@ -1,0 +1,3 @@
+com/sauce/steps/LoginSteps.class
+com/sauce/runners/TestRunner.class
+com/sauce/steps/Hooks.class

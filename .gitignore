@@ -1,0 +1,27 @@
+# ==========================================
+# 1. Pastas de Evidências, Logs e Build (Locais)
+# ==========================================
+#target/
+#logs/
+#reports/
+#evidencias/
+
+# ==========================================
+# 2. Dados Sensíveis (Configurações com Senhas)
+# ==========================================
+# Ignora o arquivo que contém suas senhas e credenciais reais
+#src/main/resources/config/config.properties
+
+# ==========================================
+# 3. Configurações da IDE (VS Code)
+# ==========================================
+#.vscode/
+#*.code-workspace
+
+# ==========================================
+# 4. Arquivos Temporários do Sistema
+# ==========================================
+#.DS_Store
+#Thumbs.db
+#*.dump
+#*.dumpstream
