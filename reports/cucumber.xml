@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="17.865" tests="5" skipped="0" failures="0" errors="0">
-<testcase classname="Login no SauceDemo" name="ID01 - Login com sucesso" time="4.6">
+<testsuite name="Cucumber" time="12.341" tests="5" skipped="0" failures="0" errors="0">
+<testcase classname="Login no SauceDemo" name="ID01 - Login com sucesso" time="3.54">
 <system-out><![CDATA[
 Dado que estou na página de login...........................................passed
 Quando faço login com credenciais padrão....................................passed
@@ -8,28 +8,28 @@ Então devo ser redirecionado para página de inventário......................p
 E devo ver o logo da aplicação..............................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Login no SauceDemo" name="ID02 - Login com usuário bloqueado" time="4.194">
+<testcase classname="Login no SauceDemo" name="ID02 - Login com usuário bloqueado" time="2.198">
 <system-out><![CDATA[
 Dado que estou na página de login...........................................passed
 Quando faço login com usuário bloqueado.....................................passed
 Então devo ver a mensagem de erro "Epic sadface: Sorry, this user has been locked out.".passed
 ]]></system-out>
 </testcase>
-<testcase classname="Login no SauceDemo" name="ID03 - Login com senha inválida" time="3.204">
+<testcase classname="Login no SauceDemo" name="ID03 - Login com senha inválida" time="2.021">
 <system-out><![CDATA[
 Dado que estou na página de login...........................................passed
 Quando faço login com usuário "standard_user" e senha "senha_errada"........passed
 Então devo ver a mensagem de erro "Username and password do not match any user in this service".passed
 ]]></system-out>
 </testcase>
-<testcase classname="Login no SauceDemo" name="ID04 - Login com usuário vazio" time="2.915">
+<testcase classname="Login no SauceDemo" name="ID04 - Login com usuário vazio" time="2.145">
 <system-out><![CDATA[
 Dado que estou na página de login...........................................passed
 Quando faço login com usuário "" e senha "secret_sauce".....................passed
 Então devo ver a mensagem de erro "Username is required"....................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Login no SauceDemo" name="ID05 - Login com senha vazia" time="2.719">
+<testcase classname="Login no SauceDemo" name="ID05 - Login com senha vazia" time="2.197">
 <system-out><![CDATA[
 Dado que estou na página de login...........................................passed
 Quando faço login com usuário "standard_user" e senha ""....................passed

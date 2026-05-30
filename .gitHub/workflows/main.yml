@@ -1,0 +1,47 @@
+name: Regressive Automated Tests
+
+# Controla quando o fluxo será executado
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test:
+    # Máquina virtual estável do Ubuntu fornecida pelo GitHub
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Faz o download do código do seu repositório para a máquina virtual
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2. Configura o ambiente Java 17 com cache do Maven para acelerar os próximos deploys
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    # 3. Instala o Google Chrome na máquina do Linux Ubuntu da nuvem
+    - name: Install Google Chrome
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+
+    # 4. Executa os testes usando o perfil de CI que ativa o modo fantasma (Headless) automaticamente
+    - name: Run Automated Tests
+      run: mvn test -Pci -Dcucumber.filter.tags="@teste"
+
+    # 5. Salva os relatórios e prints gerados para você baixar depois no site do GitHub
+    - name: Upload Test Artifacts
+      if: always() # Garante que esse passo roda mesmo se o teste falhar
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-execution-reports
+        path: |
+          reports/
+          evidencias/
+        retention-days: 7

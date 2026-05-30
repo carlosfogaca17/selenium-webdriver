@@ -5,10 +5,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 
 import com.sauce.core.utils.ConfigManager;
 
-import org.openqa.selenium.edge.EdgeDriver;
+import java.util.HashMap;
+import java.util.Map;
+import java.time.Duration;
 
 public class DriverManager {
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
@@ -23,9 +26,13 @@ public class DriverManager {
     
     private static void initializeDriver() {
         String browser = System.getProperty("browser", "chrome").toLowerCase();
-        boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+        String env = config.getCurrentEnvironment();
         
-        System.out.println("🚀 Inicializando browser: " + browser + " | Headless: " + headless);
+        // Ativa headless se for solicitado por propriedade OU se o ambiente for "ci"
+        boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false")) 
+                || "ci".equalsIgnoreCase(env);
+        
+        System.out.println("🚀 Inicializando browser: " + browser + " | Ambiente: " + env + " | Headless: " + headless);
         
         switch (browser) {
             case "chrome":
@@ -34,19 +41,25 @@ public class DriverManager {
                 options.addArguments("--start-maximized");
                 options.addArguments("--disable-notifications");
                 options.addArguments("--disable-features=PasswordLeakDetection");
+                options.addArguments("--remote-allow-origins=*"); // Evita problemas de handshake no CI
                 
-                // 💡 PENTE FINO: Desativa todas as frentes do gerenciador e validações de segurança de senha
-                java.util.Map<String, Object> prefs = new java.util.HashMap<>();
-                prefs.put("credentials_enable_service", false); // Desativa o serviço de credenciais
-                prefs.put("profile.password_manager_enabled", false); // Desativa o gerenciador de senhas
-                prefs.put("profile.password_manager_leak_detection", false); // 💥 Força o Leak Detection como falso no perfil
-                prefs.put("smart_bubble.enabled", false); // Evita balões de notificação inteligentes do Chrome
+                // PENTE FINO: Desativa frentes do gerenciador e validações de segurança de senha
+                Map<String, Object> prefs = new HashMap<>();
+                prefs.put("credentials_enable_service", false);
+                prefs.put("profile.password_manager_enabled", false);
+                prefs.put("profile.password_manager_leak_detection", false);
+                prefs.put("smart_bubble.enabled", false);
                 options.setExperimentalOption("prefs", prefs);
                 
+                // Se o modo Headless for ativado (via comando ou por ser ambiente CI)
                 if (headless) {
-                    options.addArguments("--headless");
+                    if ("ci".equalsIgnoreCase(env)) {
+                        System.out.println("🤖 Configurações extras de ambiente CI aplicadas ao Chrome.");
+                    }
+                    options.addArguments("--headless=new"); // Padrão moderno estável para o Chrome
                     options.addArguments("--no-sandbox");
                     options.addArguments("--disable-dev-shm-usage");
+                    options.addArguments("--disable-gpu");
                     options.addArguments("--window-size=1920,1080");
                 }
                 driver.set(new ChromeDriver(options));
@@ -54,6 +67,7 @@ public class DriverManager {
                 
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
+                // Opcional: Adicionar lógica headless para Firefox futuramente se precisar
                 driver.set(new FirefoxDriver());
                 driver.get().manage().window().maximize();
                 break;
@@ -70,9 +84,9 @@ public class DriverManager {
         
         // Configurar timeouts
         driver.get().manage().timeouts().implicitlyWait(
-            java.time.Duration.ofSeconds(config.getImplicitWait()));
+            Duration.ofSeconds(config.getImplicitWait()));
         driver.get().manage().timeouts().pageLoadTimeout(
-            java.time.Duration.ofSeconds(config.getPageLoadTimeout()));
+            Duration.ofSeconds(config.getPageLoadTimeout()));
     }
     
     public static void quitDriver() {
