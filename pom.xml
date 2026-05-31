@@ -164,6 +164,15 @@
         </profile>
         
         <profile>
+            <id>prd</id>
+            <properties>
+                <environment>prd</environment>
+                <browser>chrome</browser>
+                <headless>false</headless>
+            </properties>
+        </profile>
+
+        <profile>
             <id>ci</id>
             <properties>
                 <environment>ci</environment>
