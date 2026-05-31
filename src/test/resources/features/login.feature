@@ -1,5 +1,6 @@
 # language: pt
-# mvn test -Pdev -Dbrowser=chrome -Dcucumber.filter.tags="@teste"
+# mvn clean && mvn test -Pdev -Dbrowser=chrome -Dcucumber.filter.tags="@regression"
+# mvn clean && mvn test -Pdev -Dcucumber.filter.tags="@regression" -Dheadless=true
 
 Funcionalidade: Login no SauceDemo
   Como usuário do sistema
@@ -21,16 +22,16 @@ Funcionalidade: Login no SauceDemo
     Então devo ver a mensagem de erro "Epic sadface: Sorry, this user has been locked out."
 
   @regression @web @ID03
-  Cenário: ID03 - Login com senha inválida
-    Quando faço login com usuário "standard_user" e senha "senha_errada"
+  Cenário: ID03 - Login com usuário e senha inválida
+    Quando faço login com usuário "usuario_errado" e senha "senha_errada"
     Então devo ver a mensagem de erro "Username and password do not match any user in this service"
 
   @regression @web @ID04
-  Cenário: ID04 - Login com usuário vazio
-    Quando faço login com usuário "" e senha "secret_sauce"
-    Então devo ver a mensagem de erro "Username is required"
+  Cenário: ID04 - Forcando a falha para usuario bloqueado
+    Quando faço login com usuário bloqueado
+    Então devo ver a mensagem de erro "Erro bloqueado"
 
   @regression @web @ID05
-  Cenário: ID05 - Login com senha vazia
-    Quando faço login com usuário "standard_user" e senha ""
-    Então devo ver a mensagem de erro "Password is required"
+  Cenário: ID05 - Forcando a falha para usuario e senha invalida
+    Quando faço login com usuário "usuario_errado" e senha "senha_errada"
+    Então devo ver a mensagem de erro "Erro inválido"  
