@@ -13,12 +13,6 @@
 src/main/resources/config/config.properties
 
 # ==========================================
-# 3. Configurações da IDE (VS Code)
-# ==========================================
-.vscode/
-*.code-workspace
-
-# ==========================================
 # 4. Arquivos Temporários do Sistema
 # ==========================================
 .DS_Store

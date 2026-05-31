@@ -33,7 +33,12 @@ jobs:
 
     # 4. Executa os testes usando o perfil de CI que ativa o modo fantasma (Headless) automaticamente
     - name: Run Automated Tests
-      run: mvn clean test -Pci -Dcucumber.filter.tags="@regression"
+      run: |
+          mvn clean test -Pci \
+            -Dcucumber.filter.tags="@regression" \
+            -Dci.username="${{ secrets.CI_USERNAME }}" \
+            -Dci.password="${{ secrets.CI_PASSWORD }}" \
+            -Dci.locked_user="${{ secrets.CI_LOCKED_USER }}"
 
     # 5. Salva os relatórios e prints gerados para você baixar depois no site do GitHub
     - name: Upload Test Artifacts

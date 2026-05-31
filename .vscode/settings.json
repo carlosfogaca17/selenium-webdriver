@@ -1,0 +1,21 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    "cucumber.features": [
+        "src/test/resources/features/**/*.feature"
+    ],
+    "cucumber.glue": [
+        "src/test/java/com/sauce/steps/**/*.java"
+    ],
+    "files.associations": {
+        "*.feature": "cucumber"
+    },
+    "cucumber.autocomplete.steps": true,
+    "cucumber.autocomplete.steps.onType": true,
+    "cucumber.autocomplete.gherkin.spaceBetweenArguments": true,
+    "editor.quickSuggestions": {
+        "comments": false,
+        "strings": true,
+        "other": true
+    },
+    "java.configuration.updateBuildConfiguration": "automatic"
+}
