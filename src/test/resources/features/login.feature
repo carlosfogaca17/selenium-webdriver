@@ -24,7 +24,7 @@ Funcionalidade: Login no SauceDemo
   @regression @web @ID03 @teste
   Cenário: ID03 - Login com usuário e senha inválida
     Quando faço login com usuário "usuario_errado" e senha "senha_errada"
-    Então devo ver a mensagem de erro "Username and password do not match any user in this servici"
+    Então devo ver a mensagem de erro "Username and password do not match any user in this service"
 
 #  @regression @web @ID04 @teste
 #  Cenário: ID04 - Forcando a falha para usuario bloqueado
