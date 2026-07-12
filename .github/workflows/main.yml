@@ -12,12 +12,13 @@ jobs:
     # Máquina virtual estável do Ubuntu fornecida pelo GitHub
     runs-on: ubuntu-latest
 
-    # Permissões necessárias para que a Action consiga comentar no seu Pull Request
+    # Permissões atualizadas para aceitar tanto comentários em PR quanto o deploy no GH Pages
     permissions:
       statuses: write
       checks: write
       pull-requests: write
-      contents: read
+      contents: write  # Mudado para write para permitir que as actions manipulem branches de histórico
+      pages: write     # Adicionado para permitir o deploy do Allure no GitHub Pages
 
     steps:
     # 1. Faz o download do código do seu repositório para a máquina virtual
@@ -47,18 +48,46 @@ jobs:
             -Dci.password="${{ secrets.CI_PASSWORD }}" \
             -Dci.locked_user="${{ secrets.CI_LOCKED_USER }}"
 
-    # 5. Novo passo corrigido
+    # 5. Visão Rápida: Cria a tabela de resultados e comenta no PR (Excelente para DEVs/QAs no dia a dia)
     - name: Test Reporter with PR Comment
       uses: n-ryu/test-reporter@v0.0.2
       if: always() # Garante que analisa os testes mesmo se algum deles falhar
       with:
         name: 'Cucumber Test Results'
-        path: 'reports/cucumber.xml' # Seu caminho correto
-        reporter: 'java-junit'       # Força o parser a ler a estrutura XML
+        path: 'reports/cucumber.xml'
+        reporter: 'java-junit'
 
-    # 6. Salva os relatórios e prints gerados para você baixar depois no site do GitHub
+    # 6. ALLURE - Histórico: Carrega dados das execuções anteriores para gerar os gráficos de tendência
+    - name: Load Allure test report history
+      uses: actions/checkout@v4
+      if: always()
+      continue-on-error: true
+      with:
+        ref: gh-pages
+        path: gh-pages-dir
+
+    # 7. ALLURE - Build: Compila os arquivos JSON do allure-results gerados pelo Java
+    - name: Build Allure Report
+      uses: simple-elf/allure-report-action@v1.7
+      if: always()
+      id: allure-report
+      with:
+        allure_results: allure-results
+        allure_history: allure-history
+        keep_reports: 20
+
+    # 8. ALLURE - Deploy: Publica o dashboard gerado diretamente no link do GitHub Pages
+    - name: Deploy Allure Report to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      if: always()
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: allure-history
+
+    # 9. Salva os relatórios e prints brutos para você baixar se necessário
     - name: Upload Test Artifacts
-      if: always() # Garante que esse passo roda mesmo se o teste falhar
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: test-execution-reports

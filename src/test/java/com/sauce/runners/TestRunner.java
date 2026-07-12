@@ -13,7 +13,8 @@ import org.junit.runner.RunWith;
         "pretty",
         "html:reports/cucumber-report.html",
         "json:reports/cucumber.json",
-        "junit:reports/cucumber.xml"
+        "junit:reports/cucumber.xml",
+        "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
     },
     monochrome = true,
     dryRun = false

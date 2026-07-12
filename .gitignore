@@ -5,6 +5,7 @@
 /logs/
 /reports/
 /evidencias/
+/allure-results/
 
 # ==========================================
 # 2. Dados Sensíveis (Configurações com Senhas)
