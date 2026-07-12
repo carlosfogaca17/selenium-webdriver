@@ -66,15 +66,16 @@ jobs:
         ref: gh-pages
         path: gh-pages-dir
 
-    # 7. ALLURE - Build: ATUALIZADO para usar a versão oficial estável (sem Docker interno)
+    # 7. ALLURE - Build: Corrigido com o repositório oficial correto do Allure
     - name: Build Allure Report
-      uses: allure-framework/report-action@v1
+      uses: allure-framework/allure-github-actions@v1.0.4
       if: always()
       id: allure-report
       with:
-        allure-results: allure-results
-        allure-history: allure-history
-        keep-reports: 20
+        allure_results: allure-results
+        allure_history: allure-history
+        keep_reports: 20
+        allure_version: 2.24.0 # Força o uso de uma versão estável e compatível do Allure
 
     # 8. ALLURE - Deploy: Publica o dashboard gerado diretamente no link do GitHub Pages
     - name: Deploy Allure Report to GitHub Pages
