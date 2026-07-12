@@ -17,8 +17,8 @@ jobs:
       statuses: write
       checks: write
       pull-requests: write
-      contents: write  # Mudado para write para permitir que as actions manipulem branches de histórico
-      pages: write     # Adicionado para permitir o deploy do Allure no GitHub Pages
+      contents: write  # Permitir que as actions manipulem branches de histórico
+      pages: write     # Permitir o deploy do Allure no GitHub Pages
 
     steps:
     # 1. Faz o download do código do seu repositório para a máquina virtual
@@ -48,9 +48,9 @@ jobs:
             -Dci.password="${{ secrets.CI_PASSWORD }}" \
             -Dci.locked_user="${{ secrets.CI_LOCKED_USER }}"
 
-    # 5. Visão Rápida: Cria a tabela de resultados e comenta no PR (Excelente para DEVs/QAs no dia a dia)
+    # 5. CORRIGIDO: Usando a Action oficial estável do Dorny (Lê o XML e monta a tabela)
     - name: Test Reporter with PR Comment
-      uses: n-ryu/test-reporter@v0.0.2
+      uses: dorny/test-reporter@v1
       if: always() # Garante que analisa os testes mesmo se algum deles falhar
       with:
         name: 'Cucumber Test Results'
@@ -66,7 +66,7 @@ jobs:
         ref: gh-pages
         path: gh-pages-dir
 
-    # 7. ALLURE - Build: Versão limpa, ultra leve e verificada do mercado
+    # 7. ALLURE - Build: Versão estável do mercado (Agora vai rodar porque o passo 5 foi limpo)
     - name: Build Allure Report
       uses: andghern/allure-report-action@v1
       if: always()
