@@ -66,9 +66,9 @@ jobs:
         ref: gh-pages
         path: gh-pages-dir
 
-    # 7. ALLURE - Build: Versão comunitária altamente estável e atualizada
+    # 7. ALLURE - Build: Versão comunitária com o nome de usuário correto
     - name: Build Allure Report
-      uses: mgrybyk-org/allure-report-action@v2.7
+      uses: mgrybyk/allure-report-action@v2.7
       if: always()
       id: allure-report
       with:
