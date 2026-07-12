@@ -1,0 +1,10 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Sun Jul 12 20:14:54 UTC 2026","Sun Jul 12 20:14:56 UTC 2026","1154","","Login no SauceDemo","","ID02 - Login com usuário bloqueado","","ID02 - Login com usuário bloqueado","  Como usuário do sistema
+  Quero realizar login na aplicação
+  Para acessar o inventário de produtos"
+"passed","Sun Jul 12 20:14:56 UTC 2026","Sun Jul 12 20:14:57 UTC 2026","1033","","Login no SauceDemo","","ID03 - Login com usuário e senha inválida","","ID03 - Login com usuário e senha inválida","  Como usuário do sistema
+  Quero realizar login na aplicação
+  Para acessar o inventário de produtos"
+"passed","Sun Jul 12 20:14:49 UTC 2026","Sun Jul 12 20:14:54 UTC 2026","5240","","Login no SauceDemo","","ID01 - Login com sucesso","","ID01 - Login com sucesso","  Como usuário do sistema
+  Quero realizar login na aplicação
+  Para acessar o inventário de produtos"
