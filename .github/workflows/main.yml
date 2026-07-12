@@ -12,6 +12,13 @@ jobs:
     # Máquina virtual estável do Ubuntu fornecida pelo GitHub
     runs-on: ubuntu-latest
 
+    # Permissões necessárias para que a Action consiga comentar no seu Pull Request
+    permissions:
+      statuses: write
+      checks: write
+      pull-requests: write
+      contents: read
+
     steps:
     # 1. Faz o download do código do seu repositório para a máquina virtual
     - name: Checkout repository
@@ -40,7 +47,16 @@ jobs:
             -Dci.password="${{ secrets.CI_PASSWORD }}" \
             -Dci.locked_user="${{ secrets.CI_LOCKED_USER }}"
 
-    # 5. Salva os relatórios e prints gerados para você baixar depois no site do GitHub
+    # 5. NOVO: Lê os resultados dos testes e cria o relatório visual/comentário no PR
+    - name: Test Reporter with PR Comment
+      uses: n-ryu/test-reporter@v0.0.2
+      if: always() # Garante que analisa os testes mesmo se algum deles falhar
+      with:
+        name: 'Cucumber Test Results'
+        path: 'reports/cucumber.xml' # Caminho ajustado para o seu projeto
+        reporter: 'cucumber-json'    # Mudado para o formato correto do Cucumber
+
+    # 6. Salva os relatórios e prints gerados para você baixar depois no site do GitHub
     - name: Upload Test Artifacts
       if: always() # Garante que esse passo roda mesmo se o teste falhar
       uses: actions/upload-artifact@v4
