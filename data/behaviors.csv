@@ -1,4 +1,4 @@
 "Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
-"","Login no SauceDemo","ID03 - Login com usuário e senha inválida","0","0","1","0","0"
-"","Login no SauceDemo","ID02 - Login com usuário bloqueado","0","0","1","0","0"
 "","Login no SauceDemo","ID01 - Login com sucesso","0","0","1","0","0"
+"","Login no SauceDemo","ID02 - Login com usuário bloqueado","0","0","1","0","0"
+"","Login no SauceDemo","ID03 - Login com usuário e senha inválida","0","0","1","0","0"

@@ -1,10 +1,10 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Sun Jul 12 21:09:57 UTC 2026","Sun Jul 12 21:09:58 UTC 2026","1156","","Login no SauceDemo","","ID03 - Login com usuário e senha inválida","","ID03 - Login com usuário e senha inválida","  Como usuário do sistema
+"passed","Sun Jul 12 21:17:03 UTC 2026","Sun Jul 12 21:17:08 UTC 2026","4861","","Login no SauceDemo","","ID01 - Login com sucesso","","ID01 - Login com sucesso","  Como usuário do sistema
   Quero realizar login na aplicação
   Para acessar o inventário de produtos"
-"passed","Sun Jul 12 21:09:56 UTC 2026","Sun Jul 12 21:09:57 UTC 2026","1266","","Login no SauceDemo","","ID02 - Login com usuário bloqueado","","ID02 - Login com usuário bloqueado","  Como usuário do sistema
+"passed","Sun Jul 12 21:17:08 UTC 2026","Sun Jul 12 21:17:10 UTC 2026","1254","","Login no SauceDemo","","ID02 - Login com usuário bloqueado","","ID02 - Login com usuário bloqueado","  Como usuário do sistema
   Quero realizar login na aplicação
   Para acessar o inventário de produtos"
-"passed","Sun Jul 12 21:09:51 UTC 2026","Sun Jul 12 21:09:56 UTC 2026","5257","","Login no SauceDemo","","ID01 - Login com sucesso","","ID01 - Login com sucesso","  Como usuário do sistema
+"passed","Sun Jul 12 21:17:10 UTC 2026","Sun Jul 12 21:17:11 UTC 2026","1124","","Login no SauceDemo","","ID03 - Login com usuário e senha inválida","","ID03 - Login com usuário e senha inválida","  Como usuário do sistema
   Quero realizar login na aplicação
   Para acessar o inventário de produtos"
