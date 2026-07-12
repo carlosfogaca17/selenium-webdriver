@@ -76,9 +76,8 @@ jobs:
           cp -r gh-pages-dir/allure-history/* target/allure-results/history/
         fi
         
-        # O próprio Maven baixa o Allure e compila os resultados da pasta 'allure-results'
-        # gerando o site pronto em 'target/site/allure-maven-plugin'
-        mvn allure:report -Dallure.results.directory=allure-results
+        # O Maven agora vai achar o plugin e compilar o site perfeitamente
+        mvn allure:report
 
     # 8. ALLURE - Deploy: Publica a pasta gerada diretamente no GitHub Pages
     - name: Deploy Allure Report to GitHub Pages
