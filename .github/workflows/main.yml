@@ -70,13 +70,10 @@ jobs:
     - name: Build Allure Report via Maven
       if: always()
       run: |
-        # Cria a pasta de histórico se ela veio do passo anterior
-        if [ -d "gh-pages-dir/allure-history" ]; then
-          mkdir -p target/allure-results/history
-          cp -r gh-pages-dir/allure-history/* target/allure-results/history/
-        fi
+        # Tenta copiar o histórico se existir, mas não quebra o script se não existir
+        cp -r gh-pages-dir/allure-history/* target/allure-results/history/ || true
         
-        # O Maven agora vai achar o plugin e compilar o site perfeitamente
+        # Gera o relatório do Allure
         mvn allure:report
 
     # 8. ALLURE - Deploy: Publica a pasta gerada diretamente no GitHub Pages
