@@ -26,12 +26,12 @@ Funcionalidade: Login no SauceDemo
     Quando faço login com usuário "usuario_errado" e senha "senha_errada"
     Então devo ver a mensagem de erro "Username and password do not match any user in this service"
 
-#  @regression @web @ID04 @teste
+#  @regression @web @ID04
 #  Cenário: ID04 - Forcando a falha para usuario bloqueado
 #    Quando faço login com usuário bloqueado
 #    Então devo ver a mensagem de erro "Erro bloqueado"
 #
-#  @regression @web @ID05 @teste
+#  @regression @web @ID05
 #  Cenário: ID05 - Forcando a falha para usuario e senha invalida
 #    Quando faço login com usuário "usuario_errado" e senha "senha_errada"
 #    Então devo ver a mensagem de erro "Erro inválido"  
