@@ -48,7 +48,7 @@ jobs:
             -Dci.password="${{ secrets.CI_PASSWORD }}" \
             -Dci.locked_user="${{ secrets.CI_LOCKED_USER }}"
 
-    # 5. CORRIGIDO: Usando a Action oficial estável do Dorny (Lê o XML e monta a tabela)
+    # 5. Visão Rápida: Cria a tabela de resultados e comenta no PR (Oficial do Dorny, validado!)
     - name: Test Reporter with PR Comment
       uses: dorny/test-reporter@v1
       if: always() # Garante que analisa os testes mesmo se algum deles falhar
@@ -57,7 +57,7 @@ jobs:
         path: 'reports/cucumber.xml'
         reporter: 'java-junit'
 
-    # 6. ALLURE - Histórico: Carrega dados das execuções anteriores para gerar os gráficos de tendência
+    # 6. ALLURE - Histórico: Tenta baixar o histórico anterior do GitHub Pages (continua se falhar)
     - name: Load Allure test report history
       uses: actions/checkout@v4
       if: always()
@@ -66,24 +66,29 @@ jobs:
         ref: gh-pages
         path: gh-pages-dir
 
-    # 7. ALLURE - Build: Versão estável do mercado (Agora vai rodar porque o passo 5 foi limpo)
-    - name: Build Allure Report
-      uses: andghern/allure-report-action@v1
+    # 7. ALLURE - Build via Linha de Comando (Sem usar Actions de terceiros)
+    - name: Build Allure Report via Maven
       if: always()
-      with:
-        allure_results: allure-results
-        allure_history: allure-history
-        keep_reports: 20
+      run: |
+        # Cria a pasta de histórico se ela veio do passo anterior
+        if [ -d "gh-pages-dir/allure-history" ]; then
+          mkdir -p target/allure-results/history
+          cp -r gh-pages-dir/allure-history/* target/allure-results/history/
+        fi
+        
+        # O próprio Maven baixa o Allure e compila os resultados da pasta 'allure-results'
+        # gerando o site pronto em 'target/site/allure-maven-plugin'
+        mvn allure:report -Dallure.results.directory=allure-results
 
-    # 8. ALLURE - Deploy: Publica o dashboard gerado diretamente no link do GitHub Pages
+    # 8. ALLURE - Deploy: Publica a pasta gerada diretamente no GitHub Pages
     - name: Deploy Allure Report to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       if: always()
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
-        publish_dir: allure-history
-
+        publish_dir: target/site/allure-maven-plugin
+        
     # 9. Salva os relatórios e prints brutos para você baixar se necessário
     - name: Upload Test Artifacts
       if: always()
