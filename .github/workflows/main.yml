@@ -66,16 +66,15 @@ jobs:
         ref: gh-pages
         path: gh-pages-dir
 
-    # 7. ALLURE - Build: Corrigido com o repositório oficial correto do Allure
+    # 7. ALLURE - Build: Versão comunitária altamente estável e atualizada
     - name: Build Allure Report
-      uses: allure-framework/allure-github-actions@v1.0.4
+      uses: mgrybyk-org/allure-report-action@v2.7
       if: always()
       id: allure-report
       with:
         allure_results: allure-results
         allure_history: allure-history
         keep_reports: 20
-        allure_version: 2.24.0 # Força o uso de uma versão estável e compatível do Allure
 
     # 8. ALLURE - Deploy: Publica o dashboard gerado diretamente no link do GitHub Pages
     - name: Deploy Allure Report to GitHub Pages
