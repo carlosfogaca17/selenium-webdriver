@@ -47,14 +47,14 @@ jobs:
             -Dci.password="${{ secrets.CI_PASSWORD }}" \
             -Dci.locked_user="${{ secrets.CI_LOCKED_USER }}"
 
-    # 5. NOVO: Lê os resultados dos testes e cria o relatório visual/comentário no PR
+    # 5. Novo passo corrigido
     - name: Test Reporter with PR Comment
       uses: n-ryu/test-reporter@v0.0.2
       if: always() # Garante que analisa os testes mesmo se algum deles falhar
       with:
         name: 'Cucumber Test Results'
-        path: 'reports/cucumber.xml' # Caminho ajustado para o seu projeto
-        reporter: 'cucumber-json'    # Mudado para o formato correto do Cucumber
+        path: 'reports/cucumber.xml' # Seu caminho correto
+        reporter: 'java-junit'       # Força o parser a ler a estrutura XML
 
     # 6. Salva os relatórios e prints gerados para você baixar depois no site do GitHub
     - name: Upload Test Artifacts
