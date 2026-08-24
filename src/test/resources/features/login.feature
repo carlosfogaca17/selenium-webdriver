@@ -1,6 +1,6 @@
 # language: pt
 # mvn clean && mvn test -Pdev -Dbrowser=chrome -Dcucumber.filter.tags="@regression"
-# mvn clean && mvn test -Pdev -Dcucumber.filter.tags="@regression" -Dheadless=true
+# mvn clean && mvn test -Pdev -Dcucumber.filter.tags="@regression" -Dheadless=true 
 
 Funcionalidade: Login no SauceDemo
   Como usuário do sistema
